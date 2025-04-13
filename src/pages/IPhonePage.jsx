@@ -1,101 +1,114 @@
-import { useState } from 'react';
-import { useAppContext } from '../context/AppContext';
-import { models, sizes } from '../constants';
+import React, { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls, Environment, Float } from '@react-three/drei';
+import { useGSAP } from '@gsap/react';
+import gsap from 'gsap';
 import GamingPerfChart from '../components/GamingPerfChart';
 
-// Mock data - will be replaced with API data
-const mockGames = [
-  { id: 1, name: 'Honkai: Star Rail', fps: 60, resolution: '1440p', batteryLife: '6.2h' },
-  { id: 2, name: 'Genshin Impact', fps: 57, resolution: '1200p', batteryLife: '4.8h' },
-  { id: 3, name: 'Call of Duty Mobile', fps: 120, resolution: '1080p', batteryLife: '5.5h' },
-];
+const IPhoneModel = () => {
+  const modelRef = useRef();
 
-const IPhonePage = () => {
-  const { selectedModel, selectedSize, updateSelectedModel, updateSelectedSize, productData, loading, error } = useAppContext();
-  const [selectedGame, setSelectedGame] = useState(mockGames[0]);
-
-  if (loading) return <div className="h-screen flex items-center justify-center">Loading iPhone data...</div>;
-  if (error) return <div className="h-screen flex items-center justify-center text-red-500">{error}</div>;
+  useGSAP(() => {
+    gsap.to(modelRef.current.rotation, {
+      y: Math.PI * 2,
+      duration: 20,
+      repeat: -1,
+      ease: 'none'
+    });
+  });
 
   return (
-    <div className="bg-black text-white">
+    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
+      <mesh ref={modelRef} position={[0, 0, 0]}>
+        <boxGeometry args={[1, 2, 0.1]} />
+        <meshStandardMaterial color="#1d1d1f" metalness={0.8} roughness={0.2} />
+      </mesh>
+    </Float>
+  );
+};
+
+const IPhonePage = () => {
+  return (
+    <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="h-screen flex flex-col justify-center items-center px-5">
-        <h1 className="text-5xl font-semibold mb-8">{productData?.name}</h1>
-        <img 
-          src={selectedModel.img} 
-          alt={selectedModel.title} 
-          className="w-[500px] h-auto max-w-full"
-        />
+      <section className="h-screen relative">
+        <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
+          <ambientLight intensity={0.5} />
+          <pointLight position={[10, 10, 10]} />
+          <Environment preset="city" />
+          <OrbitControls enableZoom={false} />
+          <IPhoneModel />
+        </Canvas>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-center"
+          >
+            <h1 className="text-6xl font-bold mb-4">iPhone 15 Pro</h1>
+            <p className="text-xl text-gray-400">The ultimate gaming experience</p>
+          </motion.div>
+        </div>
       </section>
 
-      {/* Gaming Performance Dashboard */}
-      <section className="py-16 px-5 sm:px-10">
-        <div className="screen-max-width">
-          <h2 className="text-4xl md:text-5xl font-semibold mb-12">
-            Gaming Performance. Reimagined.
-          </h2>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Game Selection */}
-            <div>
-              <h3 className="text-2xl mb-6">Game Performance</h3>
-              <select 
-                className="bg-gray-800 p-3 rounded-lg w-full mb-8"
-                value={selectedGame.id}
-                onChange={(e) => setSelectedGame(mockGames.find(g => g.id === +e.target.value))}
+      {/* Gaming Performance Section */}
+      <section className="py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl font-bold mb-12 text-center"
+          >
+            Gaming Performance
+          </motion.h2>
+          <GamingPerfChart />
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 px-6 bg-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl font-bold mb-12 text-center"
+          >
+            Key Features
+          </motion.h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: 'A17 Pro Chip',
+                description: 'The most powerful chip ever in a smartphone',
+                icon: '🚀'
+              },
+              {
+                title: '120Hz ProMotion',
+                description: 'Ultra-smooth gaming experience',
+                icon: '🎮'
+              },
+              {
+                title: 'Ray Tracing',
+                description: 'Console-quality graphics',
+                icon: '✨'
+              }
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2 }}
+                className="bg-black p-6 rounded-xl"
               >
-                {mockGames.map(game => (
-                  <option key={game.id} value={game.id}>{game.name}</option>
-                ))}
-              </select>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gray-900 p-6 rounded-xl">
-                  <h4 className="text-gray-400 mb-2">Average FPS</h4>
-                  <p className="text-3xl">{selectedGame.fps}</p>
-                </div>
-                <div className="bg-gray-900 p-6 rounded-xl">
-                  <h4 className="text-gray-400 mb-2">Resolution</h4>
-                  <p className="text-xl">{selectedGame.resolution}</p>
-                </div>
-                <div className="bg-gray-900 p-6 rounded-xl">
-                  <h4 className="text-gray-400 mb-2">Battery Life</h4>
-                  <p className="text-xl">{selectedGame.batteryLife}</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Performance Chart Placeholder */}
-            <div className="bg-gray-900 rounded-xl p-6">
-              <GamingPerfChart game={selectedGame} />
-            </div>
+                <div className="text-4xl mb-4">{feature.icon}</div>
+                <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                <p className="text-gray-400">{feature.description}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
-
-      {/* Product Specifications */}
-      <section className="py-16 px-5 sm:px-10 bg-gray-900">
-        <div className="screen-max-width">
-          <h2 className="text-3xl mb-8">Specifications</h2>
-          {productData && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="p-4 border-b border-gray-700">
-                <h3 className="text-gray-400">Chip</h3>
-                <p>{productData.chip}</p>
-              </div>
-              <div className="p-4 border-b border-gray-700">
-                <h3 className="text-gray-400">Camera</h3>
-                <p>{productData.camera}</p>
-              </div>
-              <div className="p-4 border-b border-gray-700">
-                <h3 className="text-gray-400">Storage Options</h3>
-                <p>{productData.storage.join(', ')}</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
     </div>
   );
 };
@@ -103,22 +116,4 @@ const IPhonePage = () => {
 export default IPhonePage;
 
 
-import React from 'react';
-
-const IPhonePage = () => {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-white p-6">
-      <h1 className="text-4xl font-bold mb-4">iPhone</h1>
-      <p className="text-xl max-w-2xl text-center">
-        Discover the complete iPhone lineup with comprehensive information about each model.
-        Compare features, specifications, and find the perfect iPhone for your needs.
-      </p>
-      <div className="mt-8 p-4 bg-gray-800 rounded-lg">
-        <p>This page is under development. Check back soon for more features!</p>
-      </div>
-    </div>
-  );
-};
-
-export default IPhonePage;
 
