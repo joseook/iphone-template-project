@@ -1,43 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, Float, Text } from '@react-three/drei';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
 import { ShoppingCartIcon, XMarkIcon } from '@heroicons/react/24/outline';
-
-const ProductModel = ({ product }) => {
-  const modelRef = useRef();
-
-  useGSAP(() => {
-    gsap.to(modelRef.current.rotation, {
-      y: Math.PI * 2,
-      duration: 20,
-      repeat: -1,
-      ease: 'none'
-    });
-  });
-
-  return (
-    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-      <group ref={modelRef}>
-        <mesh>
-          <boxGeometry args={[1, 1, 1]} />
-          <meshStandardMaterial color={product.color} metalness={0.8} roughness={0.2} />
-        </mesh>
-        <Text
-          position={[0, -1.5, 0]}
-          fontSize={0.3}
-          color="white"
-          anchorX="center"
-          anchorY="middle"
-        >
-          {product.name}
-        </Text>
-      </group>
-    </Float>
-  );
-};
+import Model from '../components/Model';
+import ProductCustomizer from '../components/ProductCustomizer';
+import ARViewer from '../components/ARViewer';
+import Chatbot from '../components/Chatbot';
 
 const StorePage = () => {
   const [cart, setCart] = useState([]);
@@ -48,26 +15,26 @@ const StorePage = () => {
     {
       id: 1,
       name: 'iPhone 15 Pro',
-      category: 'iPhone',
+      category: 'SmartPhone',
       price: 999,
       color: '#1d1d1f',
-      description: 'The ultimate iPhone experience'
+      description: 'The ultimate smartphone experience'
     },
     {
       id: 2,
-      name: 'MacBook Pro',
-      category: 'Mac',
-      price: 1999,
-      color: '#1d1d1f',
-      description: 'Supercharged by M3'
+      name: 'iPhone 15',
+      category: 'SmartPhone',
+      price: 799,
+      color: '#f5f5f7',
+      description: 'Lightweight and powerful'
     },
     {
       id: 3,
-      name: 'iPad Pro',
-      category: 'iPad',
-      price: 799,
-      color: '#1d1d1f',
-      description: 'The ultimate iPad experience'
+      name: 'iPhone 15 Mini',
+      category: 'SmartPhone',
+      price: 599,
+      color: '#0071e3',
+      description: 'Compact and efficient'
     }
   ];
 
@@ -89,87 +56,54 @@ const StorePage = () => {
   const cartTotal = cart.reduce((total, item) => total + item.price, 0);
 
   return (
-    <div className="min-h-screen text-white bg-black">
+    <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
-      <section className="py-20 px-6 bg-gradient-to-b from-gray-900 to-black">
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.h1
+      <section className="h-screen relative">
+        <div className="absolute inset-0">
+          <Model showTitle={false} />
+        </div>
+        <div className="absolute inset-0 flex items-center justify-center bg-black/50">
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-5xl font-bold mb-6"
+            className="text-center"
           >
-            The Apple Store
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl text-gray-400 max-w-2xl mx-auto"
-          >
-            Shop the latest Apple products and accessories.
-          </motion.p>
+            <h1 className="text-6xl font-bold mb-4">iPhone Store</h1>
+            <p className="text-xl text-gray-400">Discover the latest iPhone models</p>
+          </motion.div>
         </div>
       </section>
 
-      {/* Category Filter */}
-      <section className="py-8 px-6 bg-black">
+      {/* Product Customization Section */}
+      <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto">
-          <div className="flex gap-4 overflow-x-auto pb-4">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-6 py-2 rounded-full transition-colors ${selectedCategory === category
-                  ? 'bg-white text-black'
-                  : 'bg-gray-800 text-white hover:bg-gray-700'
-                  }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl font-bold mb-12 text-center"
+          >
+            Customize Your iPhone
+          </motion.h2>
+          <ProductCustomizer product={storeProducts[0]} />
         </div>
       </section>
 
-      {/* Product Grid */}
-      <section className="py-12 px-6">
+      {/* AR Experience Section */}
+      <section className="py-20 px-6 bg-gray-900">
         <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                whileHover={{ scale: 1.02 }}
-                className="bg-gray-900 rounded-2xl overflow-hidden"
-              >
-                <div className="h-64">
-                  <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-                    <ambientLight intensity={0.5} />
-                    <pointLight position={[10, 10, 10]} />
-                    <Environment preset="city" />
-                    <OrbitControls enableZoom={false} />
-                    <ProductModel product={product} />
-                  </Canvas>
-                </div>
-                <div className="p-6">
-                  <h3 className="text-2xl font-semibold">{product.name}</h3>
-                  <p className="text-gray-400 mt-2">{product.description}</p>
-                  <div className="mt-4 flex justify-between items-center">
-                    <span className="text-2xl">${product.price}</span>
-                    <button
-                      onClick={() => addToCart(product)}
-                      className="bg-white text-black px-6 py-2 rounded-full hover:bg-gray-100 transition-colors"
-                    >
-                      Add to Cart
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="text-4xl font-bold mb-12 text-center"
+          >
+            Try Before You Buy
+          </motion.h2>
+          <ARViewer product={storeProducts[0]} />
         </div>
       </section>
+
+      {/* Chatbot */}
+      <Chatbot />
 
       {/* Shopping Cart Sidebar */}
       <div
@@ -195,15 +129,8 @@ const StorePage = () => {
                 {cart.map((item) => (
                   <div key={item.cartId} className="flex justify-between items-center">
                     <div className="flex gap-4">
-                      <div className="w-20 h-20 bg-gray-800 rounded-lg flex items-center justify-center">
-                        <Canvas camera={{ position: [0, 0, 2], fov: 50 }}>
-                          <ambientLight intensity={0.5} />
-                          <pointLight position={[5, 5, 5]} />
-                          <mesh>
-                            <boxGeometry args={[0.5, 0.5, 0.5]} />
-                            <meshStandardMaterial color={item.color} metalness={0.8} roughness={0.2} />
-                          </mesh>
-                        </Canvas>
+                      <div className="w-20 h-20 bg-gray-800 rounded-lg">
+                        <Model showTitle={false} />
                       </div>
                       <div>
                         <h3 className="font-medium">{item.name}</h3>

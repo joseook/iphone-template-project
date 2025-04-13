@@ -1,45 +1,16 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, Float } from '@react-three/drei';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
 import GamingPerfChart from '../components/GamingPerfChart';
-
-const IPhoneModel = () => {
-  const modelRef = useRef();
-
-  useGSAP(() => {
-    gsap.to(modelRef.current.rotation, {
-      y: Math.PI * 2,
-      duration: 20,
-      repeat: -1,
-      ease: 'none'
-    });
-  });
-
-  return (
-    <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-      <mesh ref={modelRef} position={[0, 0, 0]}>
-        <boxGeometry args={[1, 2, 0.1]} />
-        <meshStandardMaterial color="#1d1d1f" metalness={0.8} roughness={0.2} />
-      </mesh>
-    </Float>
-  );
-};
+import Model from '../components/Model';
 
 const IPhonePage = () => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Hero Section */}
       <section className="h-screen relative">
-        <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} />
-          <Environment preset="city" />
-          <OrbitControls enableZoom={false} />
-          <IPhoneModel />
-        </Canvas>
+        <div className="absolute inset-0">
+          <Model showTitle={false} />
+        </div>
         <div className="absolute inset-0 flex items-center justify-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
