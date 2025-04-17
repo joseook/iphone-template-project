@@ -1,157 +1,206 @@
 # Apple Website Clone
 
-Um clone interativo do site da Apple mostrando iPhones e MacBooks com modelos 3D interativos, inspirado no tutorial do JavaScript Mastery e expandido com recursos adicionais e múltiplas páginas.
+An interactive Apple website clone showcasing iPhones and MacBooks with 3D models, inspired by JavaScript Mastery tutorial and expanded with additional features and multiple pages.
 
 ![Apple Website Clone](/assets/images/hero.jpeg)
 
-## ✨ Recursos
+## ✨ Features
 
-- **Modelo 3D interativo do iPhone 15 Pro** com personalização de cores
-- **Modelo 3D básico do MacBook** usando geometria primitiva (pode ser substituído por um modelo real)
-- **Página de loja completa** com catálogo de produtos, customização, experiência AR e carrinho de compras
-- **Componente de comparação de produtos** para visualizar diferenças entre modelos de iPhone
-- **Gráficos de desempenho** mostrando estatísticas de jogos e comparações com concorrentes
-- **Múltiplas páginas** incluindo iPhone, MacBook e Loja
-- **Design responsivo** para diferentes tamanhos de tela
-- **Animações suaves** usando GSAP e Framer Motion
-- **Interface moderna** inspirada no design minimalista da Apple
+- **Interactive 3D iPhone 15 Pro model** with color customization
+- **Basic 3D MacBook model** using primitive geometry (can be replaced with a real model)
+- **Complete store page** with product catalog, customization options, AR experience, and shopping cart
+- **Product comparison component** for visualizing differences between iPhone models
+- **Performance charts** showing gaming statistics and competitor comparisons
+- **Multiple pages** including iPhone, MacBook, and Store
+- **Responsive design** for different screen sizes
+- **Smooth animations** using GSAP and Framer Motion
+- **Modern interface** inspired by Apple's minimalist design
+- **AR viewer** for enhanced product visualization
+- **Shopping cart** with dynamic updates and product management
 
-## 🛠️ Tecnologias Utilizadas
+## 🛠️ Technologies Used
 
-- [React](https://reactjs.org/) - Biblioteca JavaScript para construção de interfaces
-- [Vite](https://vitejs.dev/) - Build tool e servidor de desenvolvimento
-- [Three.js](https://threejs.org/) - Biblioteca 3D para web
-- [React Three Fiber](https://github.com/pmndrs/react-three-fiber) - Renderer React para Three.js
-- [GSAP](https://greensock.com/gsap/) - Biblioteca de animação
-- [Framer Motion](https://www.framer.com/motion/) - Biblioteca de animação para React
-- [TailwindCSS](https://tailwindcss.com/) - Framework CSS utilitário
-- [react-chartjs-2](https://react-chartjs-2.js.org/) - Componentes React para Chart.js
-- [Heroicons](https://heroicons.com/) - Ícones SVG
+- [React](https://reactjs.org/) - JavaScript library for building user interfaces
+- [Vite](https://vitejs.dev/) - Next generation frontend tooling
+- [Three.js](https://threejs.org/) - JavaScript 3D library
+- [React Three Fiber](https://github.com/pmndrs/react-three-fiber) - React renderer for Three.js
+- [GSAP](https://greensock.com/gsap/) - Professional-grade animation library
+- [Framer Motion](https://www.framer.com/motion/) - Production-ready motion library for React
+- [TailwindCSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [Chart.js](https://www.chartjs.org/) & [react-chartjs-2](https://react-chartjs-2.js.org/) - Flexible JavaScript charting
+- [Heroicons](https://heroicons.com/) - Beautiful hand-crafted SVG icons
+- [React Router](https://reactrouter.com/) - Declarative routing for React
 
-## 🚀 Começando
+## 🚀 Getting Started
 
-### Pré-requisitos
+### Prerequisites
 
-- Node.js (recomendado v14+)
-- pnpm (ou npm/yarn)
+- Node.js (v14+ recommended)
+- pnpm (or npm/yarn)
 
-### Instalação
+### Installation
 
-1. Clone o repositório:
+1. Clone the repository:
    ```bash
    git clone https://github.com/joseook/apple-website-clone.git
    cd apple-website-clone
    ```
 
-2. Instale as dependências:
+2. Install dependencies:
    ```bash
    pnpm install
    ```
 
-3. Inicie o servidor de desenvolvimento:
+3. Start the development server:
    ```bash
    pnpm dev
    ```
 
-4. Abra [http://localhost:5173](http://localhost:5173) no seu navegador
+4. Open [http://localhost:5173](http://localhost:5173) in your browser
 
-### Build para produção
+### Production Build
 ```bash
 pnpm build
 ```
 
-## 📂 Estrutura do Projeto
+## 📂 Project Structure
 
 ```
 /src
-  /components         # Componentes reutilizáveis
-    /IPhone.jsx       # Modelo 3D do iPhone
-    /MacBook.jsx      # Modelo 3D do MacBook
-    /Model.jsx        # Wrapper para modelos 3D
-    /ModelView.jsx    # Viewport para modelos iPhone
-    /MacModelView.jsx # Viewport para modelos MacBook
-    /Lights.jsx       # Luzes para cenas 3D
-    /ProductCustomizer.jsx # Customizador de produtos
-    /ARViewer.jsx     # Visualizador AR
-    /GamingPerfChart.jsx # Gráficos de desempenho
-    /ProductComparison.jsx # Comparação de produtos
-    /Chatbot.jsx      # Assistente de compra
+  /components         # Reusable components
+    /IPhone.jsx       # iPhone 3D model
+    /MacBook.jsx      # MacBook 3D model
+    /Model.jsx        # Wrapper for 3D models
+    /ModelView.jsx    # Viewport for iPhone models
+    /MacModelView.jsx # Viewport for MacBook models
+    /Lights.jsx       # Lights for 3D scenes
+    /ProductCustomizer.jsx # Product customizer
+    /ARViewer.jsx     # AR experience viewer
+    /GamingPerfChart.jsx # Gaming performance charts
+    /ProductComparison.jsx # Product comparison tool
+    /Chatbot.jsx      # Shopping assistant
+    /ShoppingCart.jsx # Shopping cart sidebar
+    /NavBar.jsx       # Navigation bar
+    /Footer.jsx       # Footer component
   /pages
-    /HomePage.jsx     # Página inicial
-    /IPhonePage.jsx   # Página do iPhone
-    /MacPage.jsx      # Página do MacBook
-    /StorePage.jsx    # Página da loja
-  /constants          # Constantes e dados
-  /services           # Serviços e APIs
-  /utils              # Funções utilitárias
-  /App.jsx            # Componente principal
-  /index.css          # Estilos globais
+    /HomePage.jsx     # Home page
+    /IPhonePage.jsx   # iPhone page
+    /MacPage.jsx      # MacBook page
+    /StorePage.jsx    # Store page
+  /constants          # Constants and data
+  /services           # Services and APIs
+  /utils              # Utility functions
+  /hooks              # Custom React hooks
+  /context            # React context providers
+  /App.jsx            # Main component
+  /index.css          # Global styles
 /public
-  /models             # Modelos 3D GLB
+  /models             # 3D GLB models
   /assets
-    /images           # Imagens e texturas
+    /images           # Images and textures
+    /fonts            # Custom fonts
 ```
 
-## 🌐 Modelos 3D
+## 🔧 Advanced Customization
 
-### iPhone
-O modelo 3D do iPhone é carregado a partir de um arquivo GLB (`/public/models/scene.glb`).
+### Configuring 3D Models
 
-### MacBook
-Atualmente, o MacBook é renderizado usando geometria primitiva. Para usar um modelo 3D real:
+#### iPhone
+The iPhone 3D model is loaded from a GLB file (`/public/models/scene.glb`). The model supports color customization through material manipulation.
 
-1. Adquira ou crie um modelo 3D de MacBook em formato GLB
-2. Coloque o arquivo em `/public/models/macbook.glb`
-3. Atualize o componente `MacBook.jsx` para carregar e renderizar o modelo:
+#### MacBook
+Currently, the MacBook is rendered using primitive geometry. To use a real 3D model:
+
+1. Acquire or create a MacBook 3D model in GLB format
+2. Place the file in `/public/models/macbook.glb`
+3. Update the `MacBook.jsx` component to load and render the model:
 
 ```jsx
-// Em MacBook.jsx
+// In MacBook.jsx
 import { useGLTF } from '@react-three/drei';
+import { useEffect } from 'react';
 
 export default function MacBook(props) {
   const { nodes, materials } = useGLTF('/models/macbook.glb');
   
   useEffect(() => {
-    // Código para alternar cores
+    // Code to toggle colors
     // ...
   }, [props.item.color]);
 
   return (
     <group {...props} dispose={null}>
-      {/* Referencie os nós e materiais do modelo 3D */}
+      {/* Reference the nodes and materials from the 3D model */}
       <mesh geometry={nodes.Body.geometry} material={materials.Body} />
       <mesh geometry={nodes.Screen.geometry} material={materials.Screen} />
       {/* ... */}
     </group>
   );
 }
+
+// Preload the model for better performance
+useGLTF.preload('/models/macbook.glb');
 ```
 
-## 🔍 Recursos Adicionados ao Tutorial Original
+### Performance Optimization
 
-- Página completa do MacBook com modelo 3D interativo
-- Página de loja com múltiplos produtos e categorias
-- Sistema de carrinho de compras funcional
-- Componente de comparação de produtos interativo
-- Gráficos de desempenho de jogos com comparações
-- Experiência AR aprimorada
-- Seções adicionais para especificações e recursos
-- Design responsivo e melhor experiência do usuário
-- Conteúdo adicional sobre recursos do iPhone e MacBook
+For better performance:
 
-## 🔍 Recursos para Modelos 3D
+1. Use compressed textures where possible
+2. Optimize 3D models by reducing polygon count
+3. Implement lazy loading for components and assets
+4. Use React.memo for components that don't need frequent re-renders
+5. Implement code splitting with React.lazy and Suspense
 
-Aqui estão alguns lugares onde você pode encontrar modelos 3D para uso em seus projetos:
+## 🌟 Features Added Beyond the Original Tutorial
 
-- [Sketchfab](https://sketchfab.com/) - Muitos modelos gratuitos e pagos
-- [TurboSquid](https://www.turbosquid.com/) - Modelos 3D de alta qualidade
-- [Free3D](https://free3d.com/) - Modelos 3D gratuitos
-- [Blender](https://www.blender.org/) - Software gratuito para criar seus próprios modelos
+- Complete MacBook page with interactive 3D model
+- Enhanced Store page with multiple products and categories
+- Functional shopping cart system with persistent state
+- Interactive product comparison component with detailed specifications
+- Gaming performance charts with competitor comparisons
+- Enhanced AR experience with more interactive elements
+- Additional sections for specifications and features
+- Responsive design and improved user experience
+- Additional content about iPhone and MacBook features
+- Animated transitions between pages
+- Dark mode support
 
-## 📝 Créditos
+## 🔍 Resources for 3D Models
 
-Este projeto foi inspirado pelo tutorial do [JavaScript Mastery](https://www.jsmastery.pro/) e expandido com recursos adicionais, páginas e melhorias na interface do usuário.
+Here are some places where you can find 3D models for your projects:
 
-## 📄 Licença
+- [Sketchfab](https://sketchfab.com/) - Many free and paid models
+- [TurboSquid](https://www.turbosquid.com/) - High-quality 3D models
+- [Free3D](https://free3d.com/) - Free 3D models
+- [Blender](https://www.blender.org/) - Free software to create your own models
+- [CGTrader](https://www.cgtrader.com/) - 3D model marketplace
+- [Poly Haven](https://polyhaven.com/) - Free PBR materials and HDRIs
 
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
+## 📱 Compatibility
+
+This application is optimized for:
+
+- Modern desktop browsers (Chrome, Firefox, Safari, Edge)
+- Mobile browsers on iOS and Android
+- Tablet devices
+
+WebGL support is required for 3D model rendering.
+
+## 📝 Credits
+
+This project was inspired by the [JavaScript Mastery](https://www.jsmastery.pro/) tutorial and expanded with additional features, pages, and UI improvements.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.

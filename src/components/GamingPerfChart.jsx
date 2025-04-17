@@ -76,7 +76,7 @@ const competitorData = {
 };
 
 const GamingPerfChart = () => {
-  // FPS e bateria por jogo
+  // FPS and battery life by game
   const performanceChartData = {
     labels: mockGameData.map(game => game.name),
     datasets: [
@@ -90,7 +90,7 @@ const GamingPerfChart = () => {
         barPercentage: 0.6,
       },
       {
-        label: 'Duração da Bateria (horas)',
+        label: 'Battery Life (hours)',
         data: mockGameData.map(game => game.batteryLife),
         backgroundColor: 'rgba(0, 122, 255, 0.7)',
         borderColor: 'rgba(0, 122, 255, 1)',
@@ -117,7 +117,7 @@ const GamingPerfChart = () => {
       },
       title: {
         display: true,
-        text: 'Desempenho de Jogos no iPhone 15 Pro',
+        text: 'Gaming Performance on iPhone 15 Pro',
         font: {
           size: 18,
           weight: 'bold'
@@ -168,9 +168,9 @@ const GamingPerfChart = () => {
     }
   };
 
-  // Comparação com competidores (gráfico de radar)
+  // Competitor comparison (radar chart)
   const radarChartData = {
-    labels: ['FPS', 'Qualidade Gráfica', 'Eficiência Térmica', 'Tempo de Carregamento', 'Duração da Bateria'],
+    labels: ['FPS', 'Graphics Quality', 'Thermal Efficiency', 'Load Time', 'Battery Life'],
     datasets: [
       {
         label: 'iPhone 15 Pro',
@@ -209,7 +209,7 @@ const GamingPerfChart = () => {
         pointRadius: 5,
       },
       {
-        label: 'iPhone da Geração Anterior',
+        label: 'Previous Generation iPhone',
         data: [
           competitorData['Last Gen iPhone'].fps,
           competitorData['Last Gen iPhone'].graphicsQuality,
@@ -289,7 +289,7 @@ const GamingPerfChart = () => {
           transition={{ duration: 0.5 }}
           className="bg-gray-900 p-6 rounded-xl"
         >
-          <h3 className="text-2xl font-bold mb-6">Desempenho por Jogo</h3>
+          <h3 className="text-2xl font-bold mb-6">Performance by Game</h3>
           <div className="h-[400px]">
             <Bar data={performanceChartData} options={performanceOptions} />
           </div>
@@ -298,8 +298,8 @@ const GamingPerfChart = () => {
               <div key={index} className="bg-gray-800 p-4 rounded-lg">
                 <h4 className="font-bold mb-2">{game.name}</h4>
                 <div className="text-sm text-gray-400 space-y-1">
-                  <p>Resolução: {game.resolution}</p>
-                  <p>Qualidade: {game.graphicsQuality}%</p>
+                  <p>Resolution: {game.resolution}</p>
+                  <p>Quality: {game.graphicsQuality}%</p>
                 </div>
               </div>
             ))}
@@ -312,24 +312,24 @@ const GamingPerfChart = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="bg-gray-900 p-6 rounded-xl"
         >
-          <h3 className="text-2xl font-bold mb-6">Comparação com Concorrentes</h3>
+          <h3 className="text-2xl font-bold mb-6">Competitor Comparison</h3>
           <div className="h-[450px]">
             <Radar data={radarChartData} options={radarOptions} />
           </div>
           <div className="mt-6">
-            <p className="text-gray-400 mb-4">O iPhone 15 Pro supera os dispositivos da concorrência em todos os aspectos de desempenho de jogos, especialmente em FPS e qualidade gráfica graças ao novo chip A17 Pro.</p>
+            <p className="text-gray-400 mb-4">The iPhone 15 Pro outperforms competing devices in all aspects of gaming performance, especially in FPS and graphics quality thanks to the new A17 Pro chip.</p>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start">
                 <span className="text-red-500 mr-2">•</span>
-                <span>Até 30% mais FPS que a concorrência em jogos exigentes</span>
+                <span>Up to 30% more FPS than competitors in demanding games</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 mr-2">•</span>
-                <span>Ray tracing em tempo real para efeitos de iluminação realistas</span>
+                <span>Real-time ray tracing for realistic lighting effects</span>
               </li>
               <li className="flex items-start">
                 <span className="text-red-500 mr-2">•</span>
-                <span>Sistema de refrigeração avançado para manter o desempenho por mais tempo</span>
+                <span>Advanced cooling system to maintain performance for longer periods</span>
               </li>
             </ul>
           </div>

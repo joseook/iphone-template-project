@@ -18,12 +18,12 @@ const IPhonePage = () => {
             className="text-center"
           >
             <h1 className="text-6xl font-bold mb-4">iPhone 15 Pro</h1>
-            <p className="text-xl text-gray-400 mb-8">O poder do chip A17 Pro</p>
+            <p className="text-xl text-gray-400 mb-8">The power of the A17 Pro chip</p>
             <button
               onClick={() => document.getElementById('gaming').scrollIntoView({ behavior: 'smooth' })}
               className="px-8 py-3 bg-white text-black rounded-full font-semibold hover:bg-gray-200 transition-colors"
             >
-              Explorar
+              Explore
             </button>
           </motion.div>
         </div>
@@ -37,7 +37,7 @@ const IPhonePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl font-bold mb-12 text-center"
           >
-            Performance de Gaming
+            Gaming Performance
           </motion.h2>
           <GamingPerfChart />
         </div>
@@ -51,7 +51,7 @@ const IPhonePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl font-bold mb-12 text-center"
           >
-            Sistema de Câmera Pro
+            Pro Camera System
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
@@ -59,16 +59,16 @@ const IPhonePage = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
             >
-              <h3 className="text-2xl font-bold mb-4">Capture momentos com qualidade profissional</h3>
+              <h3 className="text-2xl font-bold mb-4">Capture moments with professional quality</h3>
               <p className="text-gray-400 mb-6">
-                Com o sistema de câmera tripla de 48MP, você pode capturar fotos com detalhes impressionantes e cores vibrantes, mesmo em condições de pouca luz.
+                With the 48MP triple camera system, you can capture photos with impressive details and vibrant colors, even in low-light conditions.
               </p>
               <ul className="space-y-4">
                 {[
-                  'Câmera principal de 48MP com sensor quad-pixel',
-                  'Teleobjetiva de 12MP com zoom óptico de 5x',
-                  'Ultra-angular de 12MP com campo de visão de 120°',
-                  'Modo Noturno avançado para fotos em ambientes escuros'
+                  '48MP main camera with quad-pixel sensor',
+                  '12MP telephoto with 5x optical zoom',
+                  '12MP ultra-wide with 120° field of view',
+                  'Advanced Night mode for photos in dark environments'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
                     <span className="text-blue-500 mr-2">•</span>
@@ -107,24 +107,24 @@ const IPhonePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl font-bold mb-12 text-center"
           >
-            Design em Titânio
+            Titanium Design
           </motion.h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Resistente',
-                description: 'O titânio grau aeroespacial oferece resistência incrível com um peso mínimo',
+                title: 'Durable',
+                description: 'Aerospace-grade titanium provides incredible strength with minimal weight',
                 icon: '💪'
               },
               {
-                title: 'Leve',
-                description: 'O iPhone 15 Pro é o mais leve da história da linha Pro',
+                title: 'Lightweight',
+                description: 'The iPhone 15 Pro is the lightest Pro lineup in history',
                 icon: '🪶'
               },
               {
-                title: 'Sustentável',
-                description: 'Fabricado com materiais reciclados e embalagem livre de plástico',
+                title: 'Sustainable',
+                description: 'Made with recycled materials and plastic-free packaging',
                 icon: '♻️'
               }
             ].map((feature, index) => (
@@ -152,23 +152,23 @@ const IPhonePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl font-bold mb-12 text-center"
           >
-            Recursos Principais
+            Key Features
           </motion.h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 title: 'A17 Pro Chip',
-                description: 'O chip mais poderoso já usado em um smartphone, com CPU até 10% mais rápida e GPU até 20% mais rápida',
+                description: 'The most powerful chip ever in a smartphone, with CPU up to 10% faster and GPU up to 20% faster',
                 icon: '🚀'
               },
               {
                 title: '120Hz ProMotion',
-                description: 'Experiência fluida de gaming e rolagem com taxa de atualização que se ajusta de 10Hz a 120Hz',
+                description: 'Smooth gaming and scrolling experience with refresh rate that adjusts from 10Hz to 120Hz',
                 icon: '🎮'
               },
               {
                 title: 'Ray Tracing',
-                description: 'Gráficos de qualidade console com ray tracing acelerado por hardware para jogos imersivos',
+                description: 'Console-quality graphics with hardware-accelerated ray tracing for immersive games',
                 icon: '✨'
               }
             ].map((feature, index) => (
@@ -197,18 +197,18 @@ const IPhonePage = () => {
               whileInView={{ opacity: 1, x: 0 }}
               className="order-2 md:order-1"
             >
-              <h3 className="text-2xl font-bold mb-4">Botão de Ação</h3>
+              <h3 className="text-2xl font-bold mb-4">Action Button</h3>
               <p className="text-gray-400 mb-6">
-                O novo botão de Ação personalizável permite acesso rápido às suas funções favoritas com apenas um toque.
+                The new customizable Action button gives you quick access to your favorite features with just a tap.
               </p>
               <ul className="space-y-4">
                 {[
-                  'Abra a câmera instantaneamente',
-                  'Inicie uma gravação de voz',
-                  'Ligue a lanterna',
-                  'Ative o modo não perturbe',
-                  'Abra sua tradução favorita',
-                  'Personalize com atalhos'
+                  'Open the camera instantly',
+                  'Start a voice recording',
+                  'Turn on the flashlight',
+                  'Activate Do Not Disturb mode',
+                  'Open your favorite translation',
+                  'Customize with shortcuts'
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start">
                     <span className="text-blue-500 mr-2">•</span>
@@ -240,7 +240,7 @@ const IPhonePage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             className="text-4xl font-bold mb-6"
           >
-            Conheça o futuro agora
+            Experience the future now
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -248,7 +248,7 @@ const IPhonePage = () => {
             transition={{ delay: 0.1 }}
             className="text-xl mb-8"
           >
-            O iPhone 15 Pro representa o auge da inovação em smartphones. Com desempenho inigualável, design elegante e recursos avançados, é a escolha perfeita para quem busca o melhor da tecnologia.
+            The iPhone 15 Pro represents the pinnacle of smartphone innovation. With unmatched performance, elegant design, and advanced features, it's the perfect choice for those seeking the best in technology.
           </motion.p>
           <motion.button
             initial={{ opacity: 0, y: 20 }}
@@ -256,7 +256,7 @@ const IPhonePage = () => {
             transition={{ delay: 0.2 }}
             className="px-8 py-4 bg-white text-blue-900 rounded-full font-bold text-lg hover:bg-gray-100 transition-colors"
           >
-            Comprar iPhone 15 Pro
+            Buy iPhone 15 Pro
           </motion.button>
         </div>
       </section>
