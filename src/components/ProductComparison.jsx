@@ -1,113 +1,216 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Environment, Float, Text } from '@react-three/drei';
-import { useGSAP } from '@gsap/react';
-import gsap from 'gsap';
+import { CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
-const PhoneModel = ({ specs, position }) => {
-  const modelRef = useRef();
+const ProductComparison = ({ products }) => {
+  const [selectedProducts, setSelectedProducts] = useState(products.slice(0, 3));
 
-  useGSAP(() => {
-    gsap.to(modelRef.current.rotation, {
-      y: Math.PI * 2,
-      duration: 20,
-      repeat: -1,
-      ease: 'none'
-    });
-  });
+  // Certifique-se de que temos até 3 produtos para comparar
+  const displayProducts = selectedProducts.slice(0, 3);
 
-  return (
-    <group position={position}>
-      <Float speed={1.5} rotationIntensity={0.2} floatIntensity={0.5}>
-        <group ref={modelRef}>
-          <mesh>
-            <boxGeometry args={[0.5, 1, 0.1]} />
-            <meshStandardMaterial color={specs.color} metalness={0.8} roughness={0.2} />
-          </mesh>
-          <Text
-            position={[0, -1.2, 0]}
-            fontSize={0.2}
-            color="white"
-            anchorX="center"
-            anchorY="middle"
-          >
-            {specs.name}
-          </Text>
-        </group>
-      </Float>
-    </group>
-  );
-};
-
-const ProductComparison = () => {
-  const phones = [
+  // Categorias de comparação
+  const comparisonCategories = [
     {
-      name: 'iPhone 15 Pro',
-      specs: {
-        chip: 'A17 Pro',
-        camera: '48MP',
-        battery: 'Up to 29h',
-        display: '6.1" ProMotion',
-        color: '#1d1d1f'
+      name: 'Processador',
+      getValue: (product) => {
+        if (product.name.includes('Pro')) {
+          return 'A17 Pro';
+        } else if (product.name.includes('15')) {
+          return 'A16 Bionic';
+        }
+        return 'A15 Bionic';
       }
     },
     {
-      name: 'iPhone 14 Pro',
-      specs: {
-        chip: 'A16 Bionic',
-        camera: '48MP',
-        battery: 'Up to 23h',
-        display: '6.1" ProMotion',
-        color: '#1d1d1f'
+      name: 'Tela',
+      getValue: (product) => {
+        if (product.name.includes('Pro Max')) {
+          return '6.7" Super Retina XDR';
+        } else if (product.name.includes('Pro')) {
+          return '6.1" Super Retina XDR';
+        } else if (product.name.includes('Plus')) {
+          return '6.7" Super Retina XDR';
+        }
+        return '6.1" Super Retina XDR';
       }
     },
     {
-      name: 'iPhone 13 Pro',
-      specs: {
-        chip: 'A15 Bionic',
-        camera: '12MP',
-        battery: 'Up to 22h',
-        display: '6.1" ProMotion',
-        color: '#1d1d1f'
+      name: 'Câmera',
+      getValue: (product) => {
+        if (product.name.includes('Pro')) {
+          return 'Sistema Pro de câmera tripla 48MP';
+        }
+        return 'Sistema de câmera dupla 12MP';
       }
+    },
+    {
+      name: 'Bateria',
+      getValue: (product) => {
+        if (product.name.includes('Pro Max')) {
+          return 'Até 29h de reprodução de vídeo';
+        } else if (product.name.includes('Pro')) {
+          return 'Até 23h de reprodução de vídeo';
+        } else if (product.name.includes('Plus')) {
+          return 'Até 26h de reprodução de vídeo';
+        }
+        return 'Até 20h de reprodução de vídeo';
+      }
+    },
+    {
+      name: 'Armazenamento',
+      getValue: (product) => {
+        if (product.name.includes('Pro')) {
+          return '128GB / 256GB / 512GB / 1TB';
+        }
+        return '128GB / 256GB / 512GB';
+      }
+    },
+    {
+      name: 'Face ID',
+      getValue: (product) => 'Sim',
+      isBoolean: true
+    },
+    {
+      name: 'Material',
+      getValue: (product) => {
+        if (product.name.includes('Pro')) {
+          return 'Titânio';
+        }
+        return 'Alumínio';
+      }
+    },
+    {
+      name: 'USB-C',
+      getValue: (product) => 'Sim',
+      isBoolean: true
+    },
+    {
+      name: 'MagSafe',
+      getValue: (product) => 'Sim',
+      isBoolean: true
+    },
+    {
+      name: 'Dynamic Island',
+      getValue: (product) => 'Sim',
+      isBoolean: true
+    },
+    {
+      name: 'Chip Ultra Wideband',
+      getValue: (product) => 'Sim',
+      isBoolean: true
+    },
+    {
+      name: 'Botão de Ação',
+      getValue: (product) => {
+        if (product.name.includes('Pro')) {
+          return 'Sim';
+        }
+        return 'Não';
+      },
+      isBoolean: true
     }
   ];
 
+  const handleProductSelect = (productId) => {
+    const product = products.find(p => p.id === productId);
+
+    // Se o produto já está selecionado, remova-o
+    if (selectedProducts.some(p => p.id === productId)) {
+      setSelectedProducts(selectedProducts.filter(p => p.id !== productId));
+    }
+    // Se não está selecionado e temos menos de 3 produtos, adicione-o
+    else if (selectedProducts.length < 3) {
+      setSelectedProducts([...selectedProducts, product]);
+    }
+    // Se já temos 3 produtos, substitua o último
+    else {
+      const newSelected = [...selectedProducts];
+      newSelected[2] = product;
+      setSelectedProducts(newSelected);
+    }
+  };
+
   return (
-    <div className="w-full bg-black rounded-xl p-6">
-      <h2 className="text-3xl font-bold mb-8 text-center">Compare iPhone Models</h2>
+    <div className="w-full bg-gray-900 rounded-xl p-6">
+      <div className="mb-8">
+        <h3 className="text-xl font-semibold mb-4">Selecione os modelos para comparar</h3>
+        <div className="flex flex-wrap gap-3">
+          {products.map((product) => (
+            <button
+              key={product.id}
+              onClick={() => handleProductSelect(product.id)}
+              className={`px-4 py-2 rounded-full border-2 ${selectedProducts.some(p => p.id === product.id)
+                  ? 'border-white bg-white text-black'
+                  : 'border-gray-700 text-white hover:border-gray-500'
+                }`}
+            >
+              {product.name}
+            </button>
+          ))}
+        </div>
+      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {phones.map((phone, index) => (
-          <motion.div
-            key={phone.name}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2 }}
-            className="bg-gray-900 p-6 rounded-xl"
-          >
-            <div className="h-64 mb-6">
-              <Canvas camera={{ position: [0, 0, 5], fov: 50 }}>
-                <ambientLight intensity={0.5} />
-                <pointLight position={[10, 10, 10]} />
-                <Environment preset="city" />
-                <OrbitControls enableZoom={false} />
-                <PhoneModel specs={phone.specs} position={[0, 0, 0]} />
-              </Canvas>
-            </div>
-
-            <h3 className="text-2xl font-bold mb-4">{phone.name}</h3>
-            <ul className="space-y-2">
-              {Object.entries(phone.specs).map(([key, value]) => (
-                <li key={key} className="flex justify-between">
-                  <span className="text-gray-400">{key}:</span>
-                  <span>{value}</span>
-                </li>
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr>
+              <th className="text-left p-4 bg-gray-800 rounded-tl-lg"></th>
+              {displayProducts.map((product, index) => (
+                <th
+                  key={product.id}
+                  className={`p-4 bg-gray-800 text-center ${index === displayProducts.length - 1 ? 'rounded-tr-lg' : ''}`}
+                >
+                  <div className="flex flex-col items-center">
+                    <div
+                      className="w-16 h-16 rounded-full mb-2"
+                      style={{ backgroundColor: product.color }}
+                    ></div>
+                    <h3 className="font-bold">{product.name}</h3>
+                    <p className="text-gray-400">${product.price}</p>
+                  </div>
+                </th>
               ))}
-            </ul>
-          </motion.div>
-        ))}
+            </tr>
+          </thead>
+          <tbody>
+            {comparisonCategories.map((category, categoryIndex) => (
+              <tr key={category.name} className={categoryIndex % 2 === 0 ? 'bg-gray-800/50' : ''}>
+                <td className="p-4 font-medium">{category.name}</td>
+                {displayProducts.map((product) => {
+                  const value = category.getValue(product);
+                  return (
+                    <td key={`${product.id}-${category.name}`} className="p-4 text-center">
+                      {category.isBoolean ? (
+                        value === 'Sim' ? (
+                          <CheckIcon className="w-6 h-6 mx-auto text-green-500" />
+                        ) : (
+                          <XMarkIcon className="w-6 h-6 mx-auto text-red-500" />
+                        )
+                      ) : (
+                        <span>{value}</span>
+                      )}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td className="p-4 bg-gray-800 rounded-bl-lg"></td>
+              {displayProducts.map((product, index) => (
+                <td
+                  key={product.id}
+                  className={`p-4 bg-gray-800 text-center ${index === displayProducts.length - 1 ? 'rounded-br-lg' : ''}`}
+                >
+                  <button className="px-4 py-2 bg-white text-black rounded-full text-sm font-bold hover:bg-gray-100 transition-colors">
+                    Comprar
+                  </button>
+                </td>
+              ))}
+            </tr>
+          </tfoot>
+        </table>
       </div>
     </div>
   );
